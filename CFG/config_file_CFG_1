@@ -1,0 +1,10 @@
+[Vars]
+A,*
+B
+[Sigma]
+0
+1
+$
+[Rules]
+A -> 0,A,1
+A -> $

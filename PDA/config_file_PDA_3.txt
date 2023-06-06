@@ -1,0 +1,26 @@
+# a PDA for arithmetic
+[Sigma]
+(
+)
+int
++
+x
+*
+[States]
+q0,S
+q1
+q2
+q3,F
+[Gama]
+(
+)
+$
+*
+[Trans]
+q0,*,*,$,q1
+q1,(,*,(,q1
+q1,int,*,*,q2
+q2,),(,*,q2
+q2,+,*,*,q1
+q2,x,*,*,q1
+q2,*,$,*,q3

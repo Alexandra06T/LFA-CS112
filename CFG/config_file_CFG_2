@@ -1,0 +1,40 @@
+[Vars]
+S,*
+NP
+VP
+Det
+N
+V
+[Sigma]
+the
+a
+an
+book
+man
+woman
+dog
+cat
+eats
+reads
+likes
+runs
+visits
+[Rules]
+S -> NP,VP
+NP -> Det,N
+NP -> N
+VP -> V,NP
+VP -> V
+Det -> the
+Det -> a
+Det -> an
+N -> book
+N -> man
+N -> woman
+N -> dog
+N -> cat
+V -> eats
+V -> reads
+V -> likes
+V -> runs
+V -> visits
