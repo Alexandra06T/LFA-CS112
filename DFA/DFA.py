@@ -43,8 +43,8 @@ def load_states():
                 elif el == 'F':
                     nr_final += 1
                     ls_stari_finale.append(lsaux[0])
-    # daca starile initiale si cele finale sunt mai multe decat cate una sau nu exista, eroare
-    if nr_start != 1 or nr_final != 1:
+    # daca starile initiale sunt mai multe decat cate una sau nu exista, eroare, daca nu exist astari finale eroare
+    if nr_start != 1 or nr_final < 1:
         raise RuntimeError("Numar stari initiale si finale incorect")
     # daca nu exista stari, eroare
     if not lista_stari:
@@ -56,10 +56,10 @@ def load_actions():
     actions = d["Actions"]
     sigma = d["Sigma"]
     lista_stari = load_states()[0]
-    # vom retine tupluri (nume_stare1,litera_alfabet,nume_stare2)
+    # vom retine tupluri (nume_stare1,simbol_alfabet,nume_stare2)
     lista_actiuni = []
 
-    # pentru fiecare linie din sectiunea Actions verificam intai daca are cele trei parti obligatorii, apoi daca stare1 si stare2 sunt valide si daca litera_alfabet apartine alfabetului
+    # pentru fiecare linie din sectiunea Actions verificam intai daca are cele trei parti obligatorii, apoi daca stare1 si stare2 sunt valide si daca simbol_alfabet apartine alfabetului
     for element in actions:
         lsaux = element.split(',')
 
@@ -76,7 +76,12 @@ def load_actions():
         if len([tuplu[2] for tuplu in lista_actiuni if tuplu[0] == lsaux[0] and tuplu[1] == lsaux[1] and tuplu[2] != lsaux[2]]) != 0:
             raise RuntimeError("Mai multe tranzitii aplicabile pentru aceeasi stare si acelasi simbol din alfabet.")
 
-        lista_actiuni.append((lsaux[0],lsaux[1],lsaux[2]))
+        lista_actiuni.append((lsaux[0], lsaux[1], lsaux[2]))
+
+    # verificam daca avem pentru ficare stare o singura tranzitie pentru fiecare simbol din alfabet ( am verificat deja sa nu fie mai multe tranzitii, acum verificam sa avem macar una )
+    for q in lista_stari:
+        if len([tuplu for tuplu in lista_actiuni if tuplu[0] == q]) != len(sigma):
+            raise RuntimeError(f"Nu exista tranzitie pentru toate simbolurile din alfabet din starea {q}")
 
     return lista_actiuni
 
