@@ -1,7 +1,7 @@
+# accepta stringurile care au lungimea divizibila cu 2 sau cu 4
 [Sigma]
 0
 1
-*
 [States]
 q0,S
 q1

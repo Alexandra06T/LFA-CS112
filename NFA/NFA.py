@@ -59,9 +59,9 @@ def load_actions():
     actions = d["Actions"]
     sigma = d["Sigma"]
     lista_stari = load_states()[0]
-    # vom retine tupluri (nume_stare1,litera_alfabet,nume_stare2)
+    # vom retine tupluri (nume_stare1,simbol_alfabet,nume_stare2)
     lista_actiuni = []
-    # pentru fiecare linie din sectiunea Actions verificam intai daca are cele trei parti obligatorii, apoi daca stare1 si stare2 sunt valide si daca litera_alfabet apartine alfabetului
+    # pentru fiecare linie din sectiunea Actions verificam intai daca are cele trei parti obligatorii, apoi daca stare1 si stare2 sunt valide si daca simbol_alfabet apartine alfabetului
     for element in actions:
         lsaux = element.split(',')
 
@@ -71,7 +71,7 @@ def load_actions():
         if lsaux[0] not in lista_stari or lsaux[2] not in lista_stari:
             raise RuntimeError("Tranzitia foloseste stari necunoscute.")
 
-        if lsaux[1] not in sigma:
+        if lsaux[1] not in sigma and lsaux[1] != '*':
             raise RuntimeError("Simbol din alfabet necunoscut")
 
         lista_actiuni.append((lsaux[0], lsaux[1], lsaux[2]))
@@ -87,7 +87,7 @@ def emulate_nfa(nfa, input_str):
     # stari_crt este lista care retine starile in care se afla simultan automatul la un anumit moment dat
     stari_crt = [stare_init]
 
-    # pentru fiecare litera citita
+    # pentru fiecare simbol citit
     for s in input_str:
 
         # verificam daca inputul ese valid
@@ -96,6 +96,7 @@ def emulate_nfa(nfa, input_str):
 
         # prin tranzitii se trece la o lista de stari
         next_states = []
+
         # pentru fiecare stare din lista curenta de stari in care se afla automatul
         for q in stari_crt:
             # verificam daca exista tranzitie cu epsilon de la q, daca da trecem in lista de stari curente si starea la care se ajunge prin epsilon pentru a o putea evalua in aceeasi runda
@@ -110,7 +111,7 @@ def emulate_nfa(nfa, input_str):
         stari_crt = next_states
 
     # daca au mai ramas de executat actiuni care nu necesita input
-    # pentru fiecare din starile curente, verificam ca mai sus match-urile cu tranzitiile, dar efectuam doar tranzitiile pt care nu e necesar sa citim nimic, iar rezultatul va fi evaluat inaceeasi runda
+    # pentru fiecare din starile curente, verificam ca mai sus match-urile cu tranzitiile, dar efectuam doar tranzitiile pt care nu e necesar sa citim nimic, iar rezultatul va fi evaluat in aceeasi runda
     for q in stari_crt:
         for t in lista_actiuni:
             if q[0] == t[0] and t[1] == '*':
