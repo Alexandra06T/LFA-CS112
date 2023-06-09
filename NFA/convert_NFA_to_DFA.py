@@ -76,5 +76,3 @@ def convertNFAtoDFA(nfa):
                 actions_dfa.append((R, symbol, lista))
 
     return [sigma_dfa, states_dfa, start_state_dfa, final_states_dfa, actions_dfa]
-
-# eliminare stari inutile, minimizare
