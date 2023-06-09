@@ -2,7 +2,6 @@
 [Sigma]
 0
 1
-*
 [States]
 q0,S
 q1
@@ -11,7 +10,6 @@ q3,F
 [Gama]
 0
 $
-*
 [Trans]
 q0,*,*,$,q1
 q1,0,*,0,q1

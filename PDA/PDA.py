@@ -78,11 +78,11 @@ def load_actions():
         if lsaux[0] not in lista_stari or lsaux[4] not in lista_stari:
             raise RuntimeError("Tranzitia foloseste stari necunoscute.")
 
-        if lsaux[1] not in d["Sigma"]:
+        if lsaux[1] not in d["Sigma"] and lsaux[1] != '*':
             raise RuntimeError("Simbol din alfabet necunoscut")
 
-        if lsaux[2] not in d["Gama"] or lsaux[3] not in d["Gama"]:
-            raise RuntimeError("Simbol din alfabetul stivei necunoscut")
+        if (lsaux[2] not in d["Gama"] and lsaux[2] != '*') or (lsaux[3] not in d["Gama"] and lsaux[3] != '*'):
+            raise RuntimeError(f"Simbol din alfabetul stivei necunoscut")
 
         lista_actiuni.append((lsaux[0], lsaux[1], lsaux[2], lsaux[3], lsaux[4]))
 
