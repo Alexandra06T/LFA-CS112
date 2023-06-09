@@ -51,6 +51,10 @@ Daca s-a consumat litera ( s-a facut match cu o tranzitie folosind-o), se adauga
 
 **Pasul 3.** Parcurgem lista de stari curente si verificam daca starea este una finala. Daca macar o stare curenta este stare finala, stringul este acceptat.
 
+### Converter NFA to DFA
+
+Convertorul preia un NFA si returneaza un DFA echivalent.
+
 ## CFG
 
 ### Formatul Fisierului de configurare
@@ -100,4 +104,4 @@ Daca s-a consumat litera ( s-a facut match cu o tranzitie folosind-o), se adauga
 
 **Pasul 3.** Cand s-au terminat literele de citit din input_string parcurgem inca o data starile curente pentru a aplica si posibilele tranzitii in care nu este necesara consumarea unei litere ( tranzitii cu epsilon)
 
-**Pasul 4.** Parcurgem lista de stari curente si verificam daca starea este una finala si stiva este goala. Aceste doua conditii indeplinite simultan asigura faptul ca un branch a golit stiva concomitent cu terminarea parcurgerii inputului, adica limbajul a fost acceptat.
+**Pasul 4.** Parcurgem lista de stari curente si verificam daca starea este una finala si stiva este goala. Aceste doua conditii indeplinite simultan asigura faptul ca un branch a golit stiva concomitent cu terminarea parcurgerii inputului, adica stringul a fost acceptat.
