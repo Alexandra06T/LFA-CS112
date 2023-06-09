@@ -102,8 +102,10 @@ def load_rules():
 
         symbols = r_split[1].split(',')
         for symbol in symbols:
-            if symbol not in sigma and symbol not in vars_list:
-                raise RuntimeError(f"Simbolul {element} nu este recunoscut ca simbol sau ca variabila. ")
+            if symbol not in vars_list:  # inseamna ca e un string de terminals, verificam daca sunt din alfabet
+                for ch in symbol:
+                    if ch not in sigma:
+                        raise RuntimeError(f"Simbolul {ch} nu este recunoscut ca simbol sau ca variabila. ")
 
         d_rules[var].append(symbols)
 
@@ -152,5 +154,3 @@ def generate_lang():
             crt_str = new_str
 
     return " ".join(crt_str)
-
-
